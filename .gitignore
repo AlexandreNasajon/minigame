@@ -1,10 +1,11 @@
 life = 10
 pool = {
     {["number"] = 1,["type"] = "monster",["name"] = "Zombie",["power"] = 6,["resistance"]=3},
-    {["number"] = 1,["type"] = "monster",["name"] = "Human",["power"] = 1,["resistance"]=7}
+    {["number"] = 1,["type"] = "monster",["name"] = "Human",["power"] = 1,["resistance"]=6}
 }
 board = {pool[1]}
 board2 = {pool[2]}
+grave2 = {1}
 
 function printcard(c)
     print("#","Type","Name","Power","Resistance")
@@ -20,6 +21,16 @@ function printboard(b)
     end
 end
 
+function printgrave(g)
+    l = 1
+    while l <= #g do
+        printcard(g[l])
+   
+        l = l+1
+    end
+end
+    
+
 while life>0 do
     print("The board is:")
     printboard(board)
@@ -33,7 +44,9 @@ while life>0 do
         
         print("Select a target.")
         print("1 - Opponent")
+        if #board2>0 then
         print("2 - Monsters")
+        end
         
         target = tonumber(io.read())
         
@@ -41,7 +54,7 @@ while life>0 do
         life = life - attacker["power"]
         print("Your opponent's life is now: "..life)
         
-        elseif target == 2 then
+        elseif target == 2 and #board2>0 then
             printboard(board2)
             print("Select a defender.")
             num = tonumber(io.read())
@@ -49,6 +62,14 @@ while life>0 do
             if num<=#board2 then
                defender["resistance"] = defender["resistance"] - attacker["power"]
                print(defender["name"].."'s resistance is now "..defender["resistance"])
+               if defender["resistance"]<=0 then
+                   grave2[#grave2] = defender
+                   board2[num] = nil
+                   print(defender["name"].." was destroyed as a result of battle. It was sent to the grave.")
+                   print("Opponent's grave is now: ")
+                   printgrave(grave2)
+                   
+               end
                 
             else
                 print("Select a defender.")
