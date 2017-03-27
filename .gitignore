@@ -1,0 +1,66 @@
+life = 10
+pool = {
+    {["number"] = 1,["type"] = "monster",["name"] = "Zombie",["power"] = 6,["resistance"]=3},
+    {["number"] = 1,["type"] = "monster",["name"] = "Human",["power"] = 1,["resistance"]=7}
+}
+board = {pool[1]}
+board2 = {pool[2]}
+
+function printcard(c)
+    print("#","Type","Name","Power","Resistance")
+    print(c["number"],c["type"],c["name"],c["power"],c["resistance"])
+end
+
+function printboard(b)
+    m = 1
+    while m <= #b do
+        printcard(b[m])
+   
+        m = m+1
+    end
+end
+
+while life>0 do
+    print("The board is:")
+    printboard(board)
+    print("Select an attacker:")
+
+    attacker = tonumber(io.read())
+
+    if attacker<=#board then
+        
+        print("Select a target.")
+        print("1 - Opponent")
+        print("2 - Monsters")
+        
+        target = tonumber(io.read())
+        
+        if target == 1 then
+        life = life - attacker["power"]
+        print("Your opponent's life is now: "..life)
+        
+        elseif target == 2 then
+            printboard(board2)
+            print("Select a defender.")
+            defender = tonumber(io.read())
+            if defender <=#board2 then
+               defender["resistance"] = defender["resistance"] - attacker["power"]
+               print(defender["name"].."resistance is now"..defender["resistance"])
+                
+            else
+                print("Select a defender.")
+            end
+        
+        else
+            print("Select a target!")
+        end
+        
+        
+    else
+        print("Select an attacker!")
+    end
+end    
+
+if life<=0 then
+    print("You won!")
+end
