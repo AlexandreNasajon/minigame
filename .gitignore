@@ -25,9 +25,11 @@ while life>0 do
     printboard(board)
     print("Select an attacker:")
 
-    attacker = tonumber(io.read())
+    
+    num = tonumber(io.read())
+    attacker = board[num]
 
-    if attacker<=#board then
+    if num<=#board then
         
         print("Select a target.")
         print("1 - Opponent")
@@ -42,10 +44,11 @@ while life>0 do
         elseif target == 2 then
             printboard(board2)
             print("Select a defender.")
-            defender = tonumber(io.read())
-            if defender <=#board2 then
+            num = tonumber(io.read())
+            defender = board2[num]
+            if num<=#board2 then
                defender["resistance"] = defender["resistance"] - attacker["power"]
-               print(defender["name"].."resistance is now"..defender["resistance"])
+               print(defender["name"].."'s resistance is now "..defender["resistance"])
                 
             else
                 print("Select a defender.")
