@@ -7,26 +7,23 @@ board = {pool[1]}
 board2 = {pool[2]}
 grave2 = {1}
 
-function printcard(c)
-    print("#","Type","Name","Power","Resistance")
-    print(c["number"],c["type"],c["name"],c["power"],c["resistance"])
-end
-
 function printboard(b)
     m = 1
     while m <= #b do
-        printcard(b[m])
+        print("#","Type","Name","Power","Resistance")
+        print(m,pool[m]["type"],pool[m]["name"],pool[m]["power"],pool[m]["resistance"])
    
         m = m+1
     end
 end
 
 function printgrave(g)
-    l = 1
-    while l <= #g do
-        printcard(g[l])
+    m = 1
+    while m <= #g do
+        print("#","Type","Name","Power","Resistance")
+        print(m,pool[m]["type"],pool[m]["name"],pool[m]["power"],pool[m]["resistance"])
    
-        l = l+1
+        m = m+1
     end
 end
     
@@ -72,7 +69,7 @@ while life>0 do
                end
                 
             else
-                print("Select a defender.")
+                print("Select a defender!")
             end
         
         else
